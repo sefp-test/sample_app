@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+	# Turn to downcase before save
+	before_save { self.email = email.downcase }
+
 	validates(:name, 
 		presence: true, 
 		length: { maximum: 50 }
