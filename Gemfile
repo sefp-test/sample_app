@@ -8,6 +8,9 @@ gem 'rails', '4.0.2'
 # Bootstrap
 gem 'bootstrap-sass', '2.3.2.0'
 
+# For cryptographic hash function
+gem 'bcrypt-ruby', '3.1.2'
+
 group :development, :test do
 	gem 'rspec-rails', '2.13.1'
 end
