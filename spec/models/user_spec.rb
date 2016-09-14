@@ -23,20 +23,20 @@ describe User do
     it { should_not be_valid }
   end
 
-  describe "when email is not present" do
-    before { @user.email = ' ' }
-    it { should_not be_valid }
-  end
-
   describe "when name is too long" do
   	before { @user.name = 'a' * 51 }
   	it { should_not be_valid }
   end
 
+  describe "when email is not present" do
+    before { @user.email = ' ' }
+    it { should_not be_valid }
+  end
+
   describe "when email format is invalid" do
   	it "should be invalid" do
   		address = %w[with@comma,com without_at.org withou.end@foo. 
-  			mail@with_underscope.com with@invalid+symbol.com]
+  			mail@with_underscope.com with@invalid+symbol.com address@mail..com]
   		address.each do |invalid_address|
   			@user.email = invalid_address
   			expect(@user).not_to be_valid
@@ -64,6 +64,15 @@ describe User do
 	  # Duplicate is already saved in database.
 	  # So user should not be valid.
 	  it { should_not be_valid }
+	end
+
+	describe "when email has different case" do
+		before do 
+			@user.email.upcase!
+			@user.save
+		end
+		subject { @user.email }
+		it { should eq @user.email.downcase }
 	end
 
 	describe "when password is not present" do
