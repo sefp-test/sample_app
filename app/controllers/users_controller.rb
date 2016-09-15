@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # Not the final implementation!
   def create
     @user = User.new user_params
-    @user.save ? redirect_to(@user) : render('new')
+    @user.save ? authorization_success : authorization_failure
   end
 
   private
@@ -19,4 +19,14 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:name, :email, 
   		:password, :password_confirmation)
   end
+
+  def authorization_success
+  	flash[:success] = "Welcome to the Sample App!"
+  	redirect_to @user
+  end
+
+  def authorization_failure
+  	render 'new'
+  end
+
 end
