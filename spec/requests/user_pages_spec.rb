@@ -17,6 +17,13 @@ describe 'User pages' do
 				it "should not create a user" do
 					expect( &submit ).not_to change(User, :count)
 				end
+
+				describe 'after submission' do
+					before { click_button 'Create my account' }
+
+					it { should have_title 'Sign up' }
+					it { should have_content 'error' }
+				end
 			end
 
 			describe 'with correct information' do
