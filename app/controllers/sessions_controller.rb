@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
 	def create
 		email = params[:session][:email]
-		passwd = params[:session][:pssword]
+		passwd = params[:session][:password]
 
 		user = User.find_by_email email.downcase
 		user && user.authenticate(passwd) ? auth_success(user) : auth_failure
@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 	private
 
 	def auth_success(user)
+		# Defined in SessionsHelper
 		sign_in(user)
 		redirect_to(user)
 	end
