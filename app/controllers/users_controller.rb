@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # Not the final implementation!
   def create
     @user = User.new user_params
-    @user.save ? authorization_success : authorization_failure
+    @user.save ? registration_success : registration_failure
   end
 
   private
@@ -20,12 +20,13 @@ class UsersController < ApplicationController
   		:password, :password_confirmation)
   end
 
-  def authorization_success
+  def registration_success
+    sign_in(@user)
   	flash[:success] = "Welcome to the Sample App!"
   	redirect_to @user
   end
 
-  def authorization_failure
+  def registration_failure
   	render 'new'
   end
 
